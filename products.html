@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html>
+    <title>CIBERALPHA-BATABASE</title>
+<head>
+
+    <link rel="stylesheet" href="styles.css">
+    <script>
+    document.addEventListener('DOMContentLoaded', () => { 
+     //NAVEGACION 
+     let navBar = document.querySelector('nav');
+
+     document.addEventListener('scroll', () => 
+     {
+        if(window.scrollY > 0)
+     {
+        navBar.style.boxShadow = '0 5px 20px rgb(66, 22, 80)';
+     }
+         
+     })
+
+     //ORGANIZACION DE LOS PRODUCTOS
+     let productContainerWidth = document.querySelector('.product-cards-container').offsetWidth;
+     let productCardWidth = 260;
+     let productCardsPerRow = Math.floor(productContainerWidth / (productCardWidth + 10));
+     let marginSpacing = (productContainerWidth - (productCardsPerRow * productCardWidth)) / (productCardsPerRow - 1);
+
+     let lastElement = productCardsPerRow - 1;
+
+     let productSections = document.querySelectorAll('.product-section');
+     productSections.forEach((section) => { // Paréntesis corregido
+     let productCards = section.querySelectorAll('.product-card');
+
+     for (let i = 0; i < productCardsPerRow; i++) {
+        productCards[i].classList.add('active');
+
+        if (i === lastElement) {
+            productCards[i].style.marginRight = '0px'; 
+        } else {
+            productCards[i].style.marginRight = `${marginSpacing}px`; 
+        }
+     }
+     });
+          // AGREGAR ARTÍCULOS A LA LISTA DE DESEOS
+         let wishListCount = document.querySelector('.wishlist-link span');
+         let heartButtons = document.querySelectorAll('.heart-button');
+
+         heartButtons.forEach((button) => {
+         button.addEventListener('click', () => {
+            button.classList.toggle('active');
+            wishListCount.innerHTML = document.querySelectorAll('.heart-button.active').length;
+         });
+     });
+
+         // AGREGAR ARTÍCULOS AL CARRITO
+         let cartCount = document.querySelector('.cart-link span');
+          let cartButtons = document.querySelectorAll('.product-card .compra-button');
+
+         cartButtons.forEach((button) => {
+         button.addEventListener('click', () => {
+            button.classList.toggle('active');
+
+            if (button.innerHTML.trim() === "Agregar al carrito") {
+                button.innerHTML = "Quitar del carrito";
+            } else if (button.innerHTML === "Quitar del carrito") {
+                button.innerHTML = "Agregar al carrito";
+            } else {
+                console.error("Error al agregar artículos al carrito:", button.innerHTML);
+            }
+
+            // Actualizar el contador del carrito
+            cartCount.innerHTML = document.querySelectorAll('.product-card .compra-button.active').length;
+        });
+     });
+});
+
+    </script>
+</head>
+<body>
+    <nav>
+        <div id="navbar">
+            <div id="navbar-logo">
+                <img src="images/KITSUNE.png" alt="Kitsune, Company Logo">
+            </div>
+            <div id="navbar-link">
+                <ul>
+                    <li>
+                        <a href="index.html">
+                            inicio 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="product.html">
+                         productos
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Servicios
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Nosotros
+                        </a>
+                    </li>
+                </ul>
+                <div id="navbar-tools">
+                    <a class="cart-link" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
+                            <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+                        </svg>
+                        <span>0</span>
+                    </a>
+                    <a class="wishlist-link" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bag-heart" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0M14 14V5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1M8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132"/>
+                          </svg>
+                        <span>0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!--VENTANA PRINCIPAL-->
+
+    <div id="product-page-body">
+
+        <!--Seccion Superior-->
+        <div id="product-top-container">
+            <div id="product-top-wrapper">
+                <div id="product-top-text-section">
+                    <h1>Últimas tendencias</h1>
+                    <h2>AMD Ryzen 9 7950X3D</h2>
+                    <p>
+                        El procesador de 16 núcleos que es capaz de todo, 
+                        con el rendimiento asombroso de AMD para los jugadores y creadores 
+                        más exigentes. 
+                        Además, disfruta de las ventajas de la tecnología AMD 3D V-Cache
+                        de última generación que te brinda una latencia baja e incluso más
+                        rendimiento en el juego
+                    </p>
+                    <button class="compra-button">
+                        Comprar ahora
+                    </button>
+                </div>
+                <img src="images/RYZEN9-Photoroom.png" alt="smart glasses">
+                </div>
+            </div>
+
+        <!--CATEGORIA DE PRODUCTOS-->
+        <div id="product-category-container">
+            <div id="product-category-text">
+                <span class="section-category-text">CATEGORIAS</span>
+            </div>
+            <div id="product-category-wrapper">
+                <div class="product-category">
+                    <div class="product-category-image-section">
+                        <img src="images/all-Photoroom.png" alt="Imagine Containing All Categories">
+                    </div>
+                    <div class="product-category-desc-section">
+                        <span class="product-category-type">
+                        Todos
+                        </span>
+                        <span class="product-category-number">
+                         los articulos   
+                        </span>
+                    </div>
+                </div>
+                <div class="product-category">
+                    <div class="product-category-image-section">
+                        <img src="images/CATEGORY-MONITOR-Photoroom.png" alt="Imagine Containing Monitores Categories">
+                    </div>
+                    <div class="product-category-desc-section">
+                        <span class="product-category-type">
+                        Monitores
+                        </span>
+                        <span class="product-category-number">
+                         9 articulos 
+                        </span>
+                    </div>
+                </div>
+                <div class="product-category">
+                    <div class="product-category-image-section">
+                        <img src="images/CATEGORY-DS-Photoroom.png" alt="Imagine Containing DS Categories">
+                    </div>
+                    <div class="product-category-desc-section">
+                        <span class="product-category-type">
+                        Discos Duros
+                        </span>
+                        <span class="product-category-number">
+                         9 articulos
+                        </span>
+                    </div>
+                </div>
+                <div class="product-category">
+                    <div class="product-category-image-section">
+                        <img src="images/CATEGORY-TECLADOS-Photoroom.png" alt="Imagine Containing Accesorios Categories">
+                    </div>
+                    <div class="product-category-desc-section">
+                        <span class="product-category-type">
+                        Accesorios
+                        </span>
+                        <span class="product-category-number">
+                        Teclados, microfonos y ratones 
+                        24 articulos
+                        </span>
+                    </div>
+                </div>
+                <div class="product-category">
+                    <div class="product-category-image-section">
+                        <img src="images/CATEGORY-TV-Photoroom.png" alt="Imagine Containing Televisores Categories">
+                    </div>
+                    <div class="product-category-desc-section">
+                        <span class="product-category-type">
+                        Televisores
+                        </span>
+                        <span class="product-category-number">
+                         5 articulos
+                        </span>
+                    </div>
+                </div>
+                <div class="product-category">
+                    <div class="product-category-image-section">
+                        <img src="images/CATEGORY-PROCESADORES-Photoroom.png" alt="Imagine Containing Procesadores Categories">
+                    </div>
+                    <div class="product-category-desc-section">
+                        <span class="product-category-type">
+                        Procesadores
+                        </span>
+                        <span class="product-category-number">
+                         8 articulos
+                        </span>
+                    </div>
+                </div>
+            </div> 
+        </div><!--FINAL DE LAS CATEGORIAS-->
+
+        <!--CARRITO DE PRODUCTOS / CATALOGO-->
+        <div class="product-section" id="product-section-all">
+            <div class="product-section-top-container">
+                <div class="section-category-container">
+                    <div class="section-category-type">
+                        <span class="section-category-text">Todos nuestros productos</span>
+                    </div>
+                    <h1>Explora lo más vendido!</h1>  
+               </div>
+            </div> 
+
+            <div class="product-cards-container">
+                <ul>
+                    <li class="product-card">
+                        <div class="product-image-container">
+                            <img src="images/MONITOR01-Photoroom.png" alt="Monitor">
+                            <button class="heart-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                                  </svg>
+                            </button>
+                        </div>
+                         <div class="product-text-container">
+                            <h1>PcCom Elysium GO2480CV</h1>
+                            <p>$120.00</p>
+                            <button class="compra-button">
+                             Agregar al carrito
+                            </button>
+                         </div>
+                    </li>
+                    <li class="product-card">
+                        <div class="product-image-container">
+                            <img src="images/RYZEN9-Photoroom.png" alt="procesador">
+                            <button class="heart-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                                  </svg>
+                            </button>
+                        </div>
+                         <div class="product-text-container">
+                            <h1>AMD Ryzen 9 7950X3D</h1>
+                            <p>$699.00</p>
+                            <button class="compra-button">
+                             Agregar al carrito
+                            </button>
+                         </div>
+                    </li>
+                    <li class="product-card">
+                        <div class="product-image-container">
+                            <img src="images/TV01.png" alt="Televisores">
+                            <button class="heart-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                                  </svg>
+                            </button>
+                        </div>
+                         <div class="product-text-container">
+                            <h1>65" OLED 4K S90D Smart TV</h1>
+                            <p>$2.999.00</p>
+                            <button class="compra-button">
+                             Agregar al carrito
+                            </button>
+                         </div>
+                    </li>
+                    <li class="product-card">
+                        <div class="product-image-container">
+                            <img src="images/TRIDENTZ.png" alt="RAM">
+                            <button class="heart-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                                  </svg>
+                            </button>
+                        </div>
+                         <div class="product-text-container">
+                            <h1>G.Skill Trident Z</h1>
+                            <p>$270.76</p>
+                            <button class="compra-button">
+                             Agregar al carrito
+                            </button>
+                         </div>
+                    </li> 
+                    <li class="product-card">
+                        <div class="product-image-container">
+                            <img src="images/SeagateBarracuda-Photoroom.png" alt="RAM">
+                            <button class="heart-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                                  </svg>
+                            </button>
+                        </div>
+                         <div class="product-text-container">
+                            <h1>Seagate BarraCuda 14TB</h1>
+                            <p>$370.79</p>
+                            <button class="compra-button">
+                             Agregar al carrito
+                            </button>
+                         </div>
+                    </li>
+                    <li class="product-card">
+                        <div class="product-image-container">
+                            <img src="images/PROCESADORCORE9-Photoroom.png" alt="PROCESADOR">
+                            <button class="heart-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                                  </svg>
+                            </button>
+                        </div>
+                         <div class="product-text-container">
+                            <h1>Intel core i9-14900ks</h1>
+                            <p>$309.00</p>
+                            <button class="compra-button">
+                             Agregar al carrito
+                            </button>
+                         </div>
+                    </li>
+                    <li class="product-card">
+                        <div class="product-image-container">
+                            <img src="images/MONITORTOP.png" alt="PROCESADOR">
+                            <button class="heart-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                                  </svg>
+                            </button>
+                        </div>
+                         <div class="product-text-container">
+                            <h1>AOC Gaming 24G2SPAE</h1>
+                            <p>$243.47</p>
+                            <button class="compra-button">
+                             Agregar al carrito
+                            </button>
+                         </div>
+                    </li>
+                    <li class="product-card">
+                        <div class="product-image-container">
+                            <img src="images/TARJETAGRAFICATOP-Photoroom.png" alt="PROCESADOR">
+                            <button class="heart-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                                  </svg>
+                            </button>
+                        </div>
+                         <div class="product-text-container">
+                            <h1>Nvidia GeForce RTX 4090 16GB</h1>
+                            <p>$1183.85</p>
+                            <button class="compra-button">
+                             Agregar al carrito
+                            </button>
+                         </div>
+                    </li><!--Aqui agregare todo lo que esta en el documento-->
+                </ul>
+            </div>
+        </div>
+
+    <!--MICROFONOS-->
+    <div class="product-section" id="product-section-microfonos">
+        <div class="product-section-top-container">
+            <div class="section-category-container">
+                <div class="section-category-type">
+                    <span class="section-category-text">TODA LA ELECTRONICA</span>
+                </div>
+                <h1>MICROFONOS</h1>
+           </div>
+        </div> 
+        <div class="product-cards-container">
+        <ul>
+             <li class="product-card">
+            <div class="product-image-container">
+                <img src="images/MICROFONO01-Photoroom.png" alt="MICRFONO">
+                <button class="heart-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                        <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                      </svg>
+                </button>
+            </div>
+             <div class="product-text-container">
+                <h1>HyperX SoloCast </h1>
+                <p>$270.76</p>
+                <button class="compra-button">
+                 Agregar al carrito
+                </button>
+             </div>
+        </li>
+        <li class="product-card">
+            <div class="product-image-container">
+                <img src="images/MICROFONO02-Photoroom.png" alt="MICRFONO">
+                <button class="heart-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                        <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                      </svg>
+                </button>
+            </div>
+             <div class="product-text-container">
+                <h1>HyperX QuadCast </h1>
+                <p>$65.00</p>
+                <button class="compra-button">
+                 Agregar al carrito
+                </button>
+             </div>
+        </li>
+        <li class="product-card">
+            <div class="product-image-container">
+                <img src="images/MICROFONO03-Photoroom.png" alt="MICRFONO">
+                <button class="heart-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                        <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                      </svg>
+                </button>
+            </div>
+             <div class="product-text-container">
+                <h1>Tempest Battle Shout 300 XLR </h1>
+                <p>$60.00</p>
+                <button class="compra-button">
+                 Agregar al carrito
+                </button>
+             </div>
+        </li>
+        <li class="product-card">
+            <div class="product-image-container">
+                <img src="images/MICROFONO04-Photoroom.png" alt="MICRFONO">
+                <button class="heart-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                        <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                      </svg>
+                </button>
+            </div>
+             <div class="product-text-container">
+                <h1>Forgeon Spell RGB  </h1>
+                <p>$65.00</p>
+                <button class="compra-button">
+                 Agregar al carrito
+                </button>
+             </div>
+        </li>
+        <li class="product-card">
+            <div class="product-image-container">
+                <img src="images/MICROFONO05.png" alt="MICRFONO">
+                <button class="heart-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                        <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                      </svg>
+                </button>
+            </div>
+             <div class="product-text-container">
+                <h1> Krom Kaze </h1>
+                <p>$45.00</p>
+                <button class="compra-button">
+                 Agregar al carrito
+                </button>
+             </div>
+        </li>
+        <li class="product-card">
+            <div class="product-image-container">
+                <img src="images/MICROFONO06-Photoroom.png" alt="MICRFONO">
+                <button class="heart-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                        <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                      </svg>
+                </button>
+            </div>
+             <div class="product-text-container">
+                <h1> Blue Microphones Yeti </h1>
+                <p>$80.00</p>
+                <button class="compra-button">
+                 Agregar al carrito
+                </button>
+             </div>
+        </li>
+        <li class="product-card">
+            <div class="product-image-container">
+                <img src="images/MICROFONO07-Photoroom.png" alt="MICRFONO">
+                <button class="heart-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                        <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                      </svg>
+                </button>
+            </div>
+             <div class="product-text-container">
+                <h1> Krom Kapsule Kit  </h1>
+                <p>$50.00</p>
+                <button class="compra-button">
+                 Agregar al carrito
+                </button>
+             </div>
+        </li>
+        <li class="product-card">
+            <div class="product-image-container">
+                <img src="images/MICROFONO08-Photoroom.png" alt="MICRFONO">
+                <button class="heart-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                        <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                      </svg>
+                </button>
+            </div>
+             <div class="product-text-container">
+                <h1> ASUS ROG Carnyx  </h1>
+                <p>$120.00</p>
+                <button class="compra-button">
+                 Agregar al carrito
+                </button>
+             </div>
+        </li>
+    </ul>
+  </div>
+  </div>
+
+  <!--SECCION DE PROMOCIONES 1-->
+  <div class="promotion-section">
+     <div class="promo-image-container">
+        <img src="images/PROMOCION1.png" alt="Exos X Mozaic 3+">
+      </div>
+      <div class="promo-text-container">
+      <div class="promo-heading">
+         <h1>¡Alcanza Nuevas Alturas con 30TB!</h1>
+      </div>
+         <h2>Exos X Mozaic 3+</h2>
+         <p>
+            Capacidad masiva: Hasta 32TB de almacenamiento.
+          Tecnología avanzada: Rendimiento superior con HAMR.
+          Fiabilidad garantizada: 2.5M horas MTBF y 5 años de garantía.
+         Eficiencia energética: Menos espacio y menor consumo.
+         ¡Optimiza tu almacenamiento hoy! Contáctanos para más información
+        </p>
+       <button class="compra-button">
+            show now
+       </button>
+    </div>
+  </div>
+  <!--FINAL DE LA PROMOCION-->
+
+    <!--TECLADOS-->
+
+        <div class="product-section" id="product-section-teclados">
+            <div class="product-section-top-container">
+                <div class="section-category-container">
+                    <div class="section-category-type">
+                        <span class="section-category-text">TODA LA ELECTRONICA</span>
+                    </div>
+                    <h1>TECLADOS</h1>
+               </div>
+            </div> 
+            <div class="product-cards-container">
+            <ul>
+                 <li class="product-card">
+                <div class="product-image-container">
+                    <img src="images/TECLADO01-Photoroom.png" alt="TECLADOS">
+                    <button class="heart-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                            <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                          </svg>
+                    </button>
+                </div>
+                 <div class="product-text-container">
+                    <h1>PcCom Essential  </h1>
+                    <p>$25.00</p>
+                    <button class="compra-button">
+                     Agregar al carrito
+                    </button>
+                 </div>
+            </li>
+            <li class="product-card">
+                <div class="product-image-container">
+                    <img src="images/TECLADO02-Photoroom.png" alt="TECLADOS">
+                    <button class="heart-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                            <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                          </svg>
+                    </button>
+                </div>
+                 <div class="product-text-container">
+                    <h1> Tempest Diablo  </h1>
+                    <p>$25.00</p>
+                    <button class="compra-button">
+                     Agregar al carrito
+                    </button>
+                 </div>
+            </li>
+            <li class="product-card">
+                <div class="product-image-container">
+                    <img src="images/TECLADO03-Photoroom.png" alt="TECLADOS">
+                    <button class="heart-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                            <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                          </svg>
+                    </button>
+                </div>
+                 <div class="product-text-container">
+                    <h1> Tempest Apocalypse  </h1>
+                    <p>$60.00</p>
+                    <button class="compra-button">
+                     Agregar al carrito
+                    </button>
+                 </div>
+            </li>
+            <li class="product-card">
+                <div class="product-image-container">
+                    <img src="images/TECLADO04-Photoroom.png" alt="TECLADOS">
+                    <button class="heart-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                            <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                          </svg>
+                    </button>
+                </div>
+                 <div class="product-text-container">
+                    <h1>Tempest Doom H-Mech  </h1>
+                    <p>$40.00</p>
+                    <button class="compra-button">
+                     Agregar al carrito
+                    </button>
+                 </div>
+            </li>
+            <li class="product-card">
+                <div class="product-image-container">
+                    <img src="images/TECLADO05-Photoroom.png" alt="TECLADOS">
+                    <button class="heart-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                            <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                          </svg>
+                    </button>
+                </div>
+                 <div class="product-text-container">
+                    <h1> Tempest K20 Beast  </h1>
+                    <p>$40.00</p>
+                    <button class="compra-button">
+                     Agregar al carrito
+                    </button>
+                 </div>
+            </li>
+            <li class="product-card">
+                <div class="product-image-container">
+                    <img src="images/TECLADO06-Photoroom.png" alt="TECLADOS">
+                    <button class="heart-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                            <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                          </svg>
+                    </button>
+                </div>
+                 <div class="product-text-container">
+                    <h1> Forgeon Clutch </h1>
+                    <p>$62.00</p>
+                    <button class="compra-button">
+                     Agregar al carrito
+                    </button>
+                 </div>
+            </li>
+            <li class="product-card">
+                <div class="product-image-container">
+                    <img src="images/TECLADO07-Photoroom.png" alt="TECLADOS">
+                    <button class="heart-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                            <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                          </svg>
+                    </button>
+                </div>
+                 <div class="product-text-container">
+                    <h1> Krom Kernel   </h1>
+                    <p>$62.00</p>
+                    <button class="compra-button">
+                     Agregar al carrito
+                    </button>
+                 </div>
+            </li>
+            <li class="product-card">
+                <div class="product-image-container">
+                    <img src="images/TECLADO08-Photoroom.png" alt="TECLADOS">
+                    <button class="heart-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                            <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                          </svg>
+                    </button>
+                </div>
+                 <div class="product-text-container">
+                    <h1> Tempest K20 Beast  </h1>
+                    <p>$43.00</p>
+                    <button class="compra-button">
+                     Agregar al carrito
+                    </button>
+                 </div>
+            </li>
+        </ul>
+      </div>
+      </div>
+
+      <!--ZONA DE RATONES-->
+
+      <div class="product-section" id="product-section-ratones">
+        <div class="product-section-top-container">
+            <div class="section-category-container">
+                <div class="section-category-type">
+                    <span class="section-category-text">TODA LA ELECTRONICA</span>
+                </div>
+                <h1>RATONES</h1>
+           </div>
+        </div> 
+        <div class="product-cards-container">
+        <ul>
+             <li class="product-card">
+            <div class="product-image-container">
+                <img src="images/RATON01-Photoroom.png" alt="RATONES">
+                <button class="heart-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                        <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                      </svg>
+                </button>
+            </div>
+             <div class="product-text-container">
+                <h1> Tempest X8 Keeper RGB  </h1>
+                <p>$19.00</p>
+                <button class="compra-button">
+                 Agregar al carrito
+                </button>
+             </div>
+        </li>
+        <li class="product-card">
+            <div class="product-image-container">
+                <img src="images/RATON02-Photoroom.png" alt="RATONES">
+                <button class="heart-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                        <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                      </svg>
+                </button>
+            </div>
+             <div class="product-text-container">
+                <h1> Forgeon Darrowspike RGB </h1>
+                <p>$36.00</p>
+                <button class="compra-button">
+                 Agregar al carrito
+                </button>
+             </div>
+        </li>
+        <li class="product-card">
+            <div class="product-image-container">
+                <img src="images/RATON03-Photoroom.png" alt="RATONES">
+                <button class="heart-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                        <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                      </svg>
+                </button>
+            </div>
+             <div class="product-text-container">
+                <h1> Essential Ratón Óptico M20   </h1>
+                <p>$10.00</p>
+                <button class="compra-button">
+                 Agregar al carrito
+                </button>
+             </div>
+        </li>
+        <li class="product-card">
+            <div class="product-image-container">
+                <img src="images/RATON04-Photoroom.png" alt="RATONES">
+                <button class="heart-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                        <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                      </svg>
+                </button>
+            </div>
+             <div class="product-text-container">
+                <h1>Razer Deathadder Essential  </h1>
+                <p>$29.00</p>
+                <button class="compra-button">
+                 Agregar al carrito
+                </button>
+             </div>
+        </li>
+        <li class="product-card">
+            <div class="product-image-container">
+                <img src="images/RATON05-Photoroom.png" alt="RATONES">
+                <button class="heart-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                        <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                      </svg>
+                </button>
+            </div>
+             <div class="product-text-container">
+                <h1> Essential Ratón M20 Wireless   </h1>
+                <p>$10.00</p>
+                <button class="compra-button">
+                 Agregar al carrito
+                </button>
+             </div>
+        </li>
+        <li class="product-card">
+            <div class="product-image-container">
+                <img src="images/RATON06-Photoroom.png" alt="RATONES">
+                <button class="heart-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                        <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                      </svg>
+                </button>
+            </div>
+             <div class="product-text-container">
+                <h1> Newskill Eos Ivory  </h1>
+                <p>$39.99</p>
+                <button class="compra-button">
+                 Agregar al carrito
+                </button>
+             </div>
+        </li>
+        <li class="product-card">
+            <div class="product-image-container">
+                <img src="images/RATON07-Photoroom.png" alt="RATONES">
+                <button class="heart-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                        <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                      </svg>
+                </button>
+            </div>
+             <div class="product-text-container">
+                <h1> Ozone Neon X20   </h1>
+                <p>$29.00</p>
+                <button class="compra-button">
+                 Agregar al carrito
+                </button>
+             </div>
+        </li>
+        <li class="product-card">
+            <div class="product-image-container">
+                <img src="images/RATON09-Photoroom.png" alt="RATONES">
+                <button class="heart-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                        <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                      </svg>
+                </button>
+            </div>
+             <div class="product-text-container">
+                <h1> Forgeon Perdition RGB  </h1>
+                <p>$40.00</p>
+                <button class="compra-button">
+                 Agregar al carrito
+                </button>
+             </div>
+        </li>
+    </ul>
+  </div>
+  </div>
+
+   <!--ZONA DE CAJAS-->
+
+   <div class="product-section" id="product-section-cajas">
+    <div class="product-section-top-container">
+        <div class="section-category-container">
+            <div class="section-category-type">
+                <span class="section-category-text">TODA LA ELECTRONICA</span>
+            </div>
+            <h1>CAJAS</h1>
+       </div>
+    </div> 
+    <div class="product-cards-container">
+    <ul>
+         <li class="product-card">
+        <div class="product-image-container">
+            <img src="images/CAJAS01-Photoroom.png" alt="CAJAS">
+            <button class="heart-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                  </svg>
+            </button>
+        </div>
+         <div class="product-text-container">
+            <h1> MSI MAG FORGE 120A AIRFLOW   </h1>
+            <p>$70.00</p>
+            <button class="compra-button">
+             Agregar al carrito
+            </button>
+         </div>
+    </li>
+    <li class="product-card">
+        <div class="product-image-container">
+            <img src="images/CAJAS02-Photoroom.png" alt="CAJAS">
+            <button class="heart-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                  </svg>
+            </button>
+        </div>
+         <div class="product-text-container">
+            <h1> Corsair 4000D Airflow  </h1>
+            <p>$80.00</p>
+            <button class="compra-button">
+             Agregar al carrito
+            </button>
+         </div>
+    </li>
+    <li class="product-card">
+        <div class="product-image-container">
+            <img src="images/CAJAS03-Photoroom.png" alt="CAJAS">
+            <button class="heart-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                  </svg>
+            </button>
+        </div>
+         <div class="product-text-container">
+            <h1> Forgeon Kyber ARGB </h1>
+            <p>$190.00</p>
+            <button class="compra-button">
+             Agregar al carrito
+            </button>
+         </div>
+    </li>
+    <li class="product-card">
+        <div class="product-image-container">
+            <img src="images/CAJAS04-Photoroom.png" alt="CAJAS">
+            <button class="heart-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                  </svg>
+            </button>
+        </div>
+         <div class="product-text-container">
+            <h1> Nfortec Caelum Black RGB  </h1>
+            <p>$60.00</p>
+            <button class="compra-button">
+             Agregar al carrito
+            </button>
+         </div>
+    </li>
+    <li class="product-card">
+        <div class="product-image-container">
+            <img src="images/CAJAS05-Photoroom.png" alt="CAJAS">
+            <button class="heart-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                  </svg>
+            </button>
+        </div>
+         <div class="product-text-container">
+            <h1> Nox Hummer Astra ARGB    </h1>
+            <p>$120.00</p>
+            <button class="compra-button">
+             Agregar al carrito
+            </button>
+         </div>
+    </li>
+    <li class="product-card">
+        <div class="product-image-container">
+            <img src="images/CAJAS06-Photoroom.png" alt="CAJAS">
+            <button class="heart-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                  </svg>
+            </button>
+        </div>
+         <div class="product-text-container">
+            <h1> Tempest Umbra RGB Torre ATX </h1>
+            <p>$65.00</p>
+            <button class="compra-button">
+             Agregar al carrito
+            </button>
+         </div>
+    </li>
+    <li class="product-card">
+        <div class="product-image-container">
+            <img src="images/CAJAS07-Photoroom.png" alt="CAJAS">
+            <button class="heart-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                  </svg>
+            </button>
+        </div>
+         <div class="product-text-container">
+            <h1> Forgeon Mithril ARGB Mesh Torre ATX  </h1>
+            <p>$150.00</p>
+            <button class="compra-button">
+             Agregar al carrito
+            </button>
+         </div>
+    </li>
+    <li class="product-card">
+        <div class="product-image-container">
+            <img src="images/CAJAS08-Photoroom.png" alt="CAJAS">
+            <button class="heart-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                  </svg>
+            </button>
+        </div>
+         <div class="product-text-container">
+            <h1> Alurin Work Torre ATX </h1>
+            <p>$70.00</p>
+            <button class="compra-button">
+             Agregar al carrito
+            </button>
+         </div>
+    </li>
+</ul>
+</div>
+</div>
+
+ <!--MONITORES-->
+    
+ <div class="product-section" id="product-section-monitores">
+    <div class="product-section-top-container">
+        <div class="section-category-container">
+            <div class="section-category-type">
+                <span class="section-category-text">TODA LA ELECTRONICA</span>
+            </div>
+            <h1>MONITORES</h1>
+       </div>
+    </div> 
+    <div class="product-cards-container">
+    <ul>
+         <li class="product-card">
+        <div class="product-image-container">
+            <img src="images/MONITOR1-Photoroom.png" alt="MONITORES">
+            <button class="heart-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                  </svg>
+            </button>
+        </div>
+         <div class="product-text-container">
+            <h1> HP M24h 23.8" fullHD 75hz  </h1>
+            <p>$120.00</p>
+            <button class="compra-button">
+             Agregar al carrito
+            </button>
+         </div>
+    </li>
+    <li class="product-card">
+        <div class="product-image-container">
+            <img src="images/MONITOR02-Photoroom.png" alt="MONITORES">
+            <button class="heart-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                  </svg>
+            </button>
+        </div>
+         <div class="product-text-container">
+            <h1> Alurin CoreVision 100IPSLite 23.8" 100HZ  </h1>
+            <p>$99.00</p>
+            <button class="compra-button">
+             Agregar al carrito
+            </button>
+         </div>
+    </li>
+    <li class="product-card">
+        <div class="product-image-container">
+            <img src="images/MONITOR03-Photoroom.png" alt="MONITORES">
+            <button class="heart-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                  </svg>
+            </button>
+        </div>
+         <div class="product-text-container">
+            <h1> HP M27fe 27" 75hz </h1>
+            <p>$120.99</p>
+            <button class="compra-button">
+             Agregar al carrito
+            </button>
+         </div>
+    </li>
+    <li class="product-card">
+        <div class="product-image-container">
+            <img src="images/MONITOR04-Photoroom.png" alt="MONITORES">
+            <button class="heart-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                  </svg>
+            </button>
+        </div>
+         <div class="product-text-container">
+            <h1> Alurin CoreVision 27 FHD 27" 100Hz  </h1>
+            <p>$110.00</p>
+            <button class="compra-button">
+             Agregar al carrito
+            </button>
+         </div>
+    </li>
+    <li class="product-card">
+        <div class="product-image-container">
+            <img src="images/MONITOR05-Photoroom.png" alt="MONITORES">
+            <button class="heart-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                  </svg>
+            </button>
+        </div>
+         <div class="product-text-container">
+            <h1> Ozone DSP27 27" 144Hz    </h1>
+            <p>$289.00</p>
+            <button class="compra-button">
+             Agregar al carrito
+            </button>
+         </div>
+    </li>
+    <li class="product-card">
+        <div class="product-image-container">
+            <img src="images/MONITOR06-Photoroom.png" alt="MONITORES">
+            <button class="heart-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                  </svg>
+            </button>
+        </div>
+         <div class="product-text-container">
+            <h1> Elysium GO2480CV 23.8" 165Hz  </h1>
+            <p>$120.00</p>
+            <button class="compra-button">
+             Agregar al carrito
+            </button>
+         </div>
+    </li>
+    <li class="product-card">
+        <div class="product-image-container">
+            <img src="images/MONITOR07-Photoroom.png" alt="MONITORES">
+            <button class="heart-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                  </svg>
+            </button>
+        </div>
+         <div class="product-text-container">
+            <h1> Elysium GO2780CV 27" FullHD 165Hz </h1>
+            <p>$160.00</p>
+            <button class="compra-button">
+             Agregar al carrito
+            </button>
+         </div>
+    </li>
+    <li class="product-card">
+        <div class="product-image-container">
+            <img src="images/MONITOR08-Photoroom.png" alt="MONITORES">
+            <button class="heart-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                  </svg>
+            </button>
+        </div>
+         <div class="product-text-container">
+            <h1> Monitor MSI G27C3F 27" 180Hz  </h1>
+            <p>$140.00</p>
+            <button class="compra-button">
+             Agregar al carrito
+            </button>
+         </div>
+    </li>
+    <li class="product-card"><
+        <div class="product-image-container">
+            <img src="images/MONITOR09-Photoroom.png" alt="MONITORES">
+            <button class="heart-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                  </svg>
+            </button>
+        </div>
+         <div class="product-text-container">
+            <h1> MSI G27C4X 27" 250Hz </h1>
+            <p>$190.00</p>
+            <button class="compra-button">
+             Agregar al carrito
+            </button>
+         </div>
+    </li>
+</ul>
+</div>
+</div>
+
+<!--MEMORIA RAM-->
+<div class="product-section" id="product-section-ram">
+    <div class="product-section-top-container">
+        <div class="section-category-container">
+            <div class="section-category-type">
+                <span class="section-category-text">TODA LA ELECTRONICA</span>
+            </div>
+            <h1>MEMORIAS RAM</h1>
+       </div>
+    </div> 
+    <div class="product-cards-container">
+    <ul>
+         <li class="product-card">
+        <div class="product-image-container">
+            <img src="images/RAM01-Photoroom.png" alt="RAM">
+            <button class="heart-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                  </svg>
+            </button>
+        </div>
+         <div class="product-text-container">
+            <h1> CORSAIR Vengeance DDR5 32 GB  </h1>
+            <p>$120.00</p>
+            <button class="compra-button">
+             Agregar al carrito
+            </button>
+         </div>
+    </li>
+    <li class="product-card">
+        <div class="product-image-container">
+            <img src="images/RAM02-Photoroom.png" alt="RAM">
+            <button class="heart-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                  </svg>
+            </button>
+        </div>
+         <div class="product-text-container">
+            <h1>VENGEANCE® LPX 32GB  </h1>
+            <p>$69.99</p>
+            <button class="compra-button">
+             Agregar al carrito
+            </button>
+         </div>
+    </li>
+    <li class="product-card">
+        <div class="product-image-container">
+            <img src="images/RAM03-Photoroom.png" alt="RAM">
+            <button class="heart-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                  </svg>
+            </button>
+        </div>
+         <div class="product-text-container">
+            <h1>VENGEANCE® LPX 16GB </h1>
+            <p>$40.00</p>
+            <button class="compra-button">
+             Agregar al carrito
+            </button>
+         </div>
+    </li>
+    <li class="product-card">
+        <div class="product-image-container">
+            <img src="images/RAM04-Photoroom.png" alt="RAM">
+            <button class="heart-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                  </svg>
+            </button>
+        </div>
+         <div class="product-text-container">
+            <h1>G.Skill Trident Z DDR4 64GB  </h1>
+            <p>$270.76</p>
+            <button class="compra-button">
+             Agregar al carrito
+            </button>
+         </div>
+    </li>
+    <li class="product-card">
+        <div class="product-image-container">
+            <img src="images/RAM05-Photoroom.png" alt="RAM">
+            <button class="heart-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                  </svg>
+            </button>
+        </div>
+         <div class="product-text-container">
+            <h1>G.Skill Ripjaws V DDR4 3600MHz 64GB   </h1>
+            <p>$240.00</p>
+            <button class="compra-button">
+             Agregar al carrito
+            </button>
+         </div>
+    </li>
+    <li class="product-card">
+        <div class="product-image-container">
+            <img src="images/RAM06-Photoroom.png" alt="RAM">
+            <button class="heart-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                  </svg>
+            </button>
+        </div>
+         <div class="product-text-container">
+            <h1>G.Skill Trident Z5 RGB DDR5 6000MHz 32 GB   </h1>
+            <p>$162.00</p>
+            <button class="compra-button">
+             Agregar al carrito
+            </button>
+         </div>
+    </li>
+    <li class="product-card">
+        <div class="product-image-container">
+            <img src="images/RAM07-Photoroom.png" alt="RAM">
+            <button class="heart-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                  </svg>
+            </button>
+        </div>
+         <div class="product-text-container">
+            <h1>G.Skill Trident Z5 RGB Plata 32GB  </h1>
+            <p>$123.00</p>
+            <button class="compra-button">
+             Agregar al carrito
+            </button>
+         </div>
+    </li>
+    <li class="product-card">
+        <div class="product-image-container">
+            <img src="images/RAM08-Photoroom.png" alt="RAM">
+            <button class="heart-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                  </svg>
+            </button>
+        </div>
+         <div class="product-text-container">
+            <h1>HyperXFury Renegade 64GB</h1>
+            <p>$267.00</p>
+            <button class="compra-button">
+             Agregar al carrito
+            </button>
+         </div>
+    </li>
+    <li class="product-card"><
+        <div class="product-image-container">
+            <img src="images/RAM09-Photoroom.png" alt="RAM">
+            <button class="heart-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="currentColor" class="bi bi-chat-left-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                  </svg>
+            </button>
+        </div>
+         <div class="product-text-container">
+            <h1> MKingston FURY Beast RGB  16gb </h1>
+            <p>$50.99</p>
+            <button class="compra-button">
+             Agregar al carrito
+            </button>
+         </div>
+    </li>
+</ul>
+</div>
+</div>
+
+    <!--DIV DE LA PAGINA TOTAL-->
+    </div>
+</body>
+<!--FOOTER -->
+<footer>
+    <div id="footer-top">
+        <img src="images/KITSUNE.png" alt="KITSUNE Logo" width="220px" height="220px">
+        <div id="footer-socials-wrapper">
+            <div class="footer-social">
+                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-phone" viewBox="0 0 16 16">
+                    <path d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                    <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                </svg>
+                <span>+507 6778-7891</span>
+            </div>
+            <div class="footer-social">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-app" viewBox="0 0 16 16">
+                    <path d="M11 2a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3zM5 1a4 4 0 0 0-4 4v6a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4z"/>
+                </svg>
+                <a href="">Aplicacion</a>
+            </div>
+            <div class="footer-social">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+                    <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+                </svg>
+                <a href="https://www.instagram.com/_.saxum/">Instagram</a>
+            </div>
+
+        </div>
+    </div>
+    <div id="footer-bottom">
+        <ul>
+            <li>
+                <a href="index.html">Inicio</a>
+            </li>
+            <li>
+                <a href="products.html">Productos</a>
+            </li>
+            <li>
+                <a href="#">Servicios</a>
+            </li>
+            <li>
+                <a href="#">Nosotros</a>
+            </li>
+        </ul>
+        <p>
+            Copyright © 2024 CIBERALPHA-BATABASE 
+        </p>
+    </div>
+</footer>
+</html>
